@@ -1,0 +1,26 @@
+{
+  "name": "azure_korea_live_3",
+  "version": "1.0.0",
+  "description": "https://www.facebook.com/MicrosoftBusinessLounge/posts/612694532260781",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daejinseok/Azure_Korea_Live_3.git"
+  },
+  "keywords": [
+    "azure"
+  ],
+  "author": "daejin.seok@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "mongodb": "^2.2.22"
+  },
+  "bugs": {
+    "url": "https://github.com/daejinseok/Azure_Korea_Live_3/issues"
+  },
+  "homepage": "https://github.com/daejinseok/Azure_Korea_Live_3#readme"
+}
