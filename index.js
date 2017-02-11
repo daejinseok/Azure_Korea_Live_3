@@ -1,7 +1,7 @@
 
 var MongoClient = require('mongodb').MongoClient, 
-	assert = require('assert'),
-	_ = require('lodash');
+    assert = require('assert'),
+    _ = require('lodash');
 
 
 var azureWord = ['다','마','른','드',
@@ -16,41 +16,41 @@ var collection = 'namudbcollection';
 
 var findWord = (ch, lastfn) => {
 
-	MongoClient.connect(url, (err, db) => {
-	  	assert.equal(null, err);
+    MongoClient.connect(url, (err, db) => {
+        assert.equal(null, err);
 
-		var col = db.collection(collection);
+        var col = db.collection(collection);
 
-		col.find(startWord(ch)).toArray( (err, docs) => {
+        col.find(startWord(ch)).toArray( (err, docs) => {
 
-			assert.equal(null, err);
-			docs.forEach((doc) => {
-			    if ( checkWord(doc.title) ){
-			    	result.push(doc.title);
-			    }
-			});
-				
-			db.close();
+            assert.equal(null, err);
+            docs.forEach((doc) => {
+                if ( checkWord(doc.title) ){
+                    result.push(doc.title);
+                }
+            });
+                
+            db.close();
 
-			if(!(--AZ_Lock)){
-				lastfn();
-			}
+            if(!(--AZ_Lock)){
+                lastfn();
+            }
 
-	  	});	
+        }); 
 
-	});	
+    }); 
 };
 
 var startWord = (ch) => {
-	const re = RegExp("^" + ch);
-	return {'title':re};
+    const re = RegExp("^" + ch);
+    return {'title':re};
 };
 
 //모든 글자가 azureWord 포함된 문자이거나 " " 이면 True
 var checkWord = (word) => {
-	return word.split('').every((e) => {
-		return azureWord.concat(' ').includes(e);
-	});
+    return word.split('').every((e) => {
+        return azureWord.concat(' ').includes(e);
+    });
 };
 
 
@@ -60,6 +60,6 @@ var checkWord = (word) => {
 var AZ_Lock = azureWord.length;
 
 azureWord.forEach((ch) => {findWord(ch, () => {
-		console.log( _.uniq(result).sort().join(' / '));
-	});
+        console.log( _.uniq(result).sort().join(' / '));
+    });
 });
