@@ -39,12 +39,12 @@ var findWord = (ch, lastfn) => {
 	  	});	
 
 	});	
-}
+};
 
 var startWord = (ch) => {
 	const re = RegExp("^" + ch);
-	return {'title':re}
-}
+	return {'title':re};
+};
 
 //모든 글자가 azureWord 포함된 문자이거나 " " 이면 True
 var checkWord = (word) => {
