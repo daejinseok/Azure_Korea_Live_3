@@ -20,9 +20,8 @@ https://www.facebook.com/MicrosoftBusinessLounge/posts/612694532260781
 
 # issue
 
-- result에 넣는 것이 다 끝난 것이지 확인을 위해 
+- result에 넣는 것이 다 끝난 것이지 확인을 위해.
 - AZ_Lock에 글자 숫자를 넣고, db조회가 끝나면 숫자를 하나씩 줄임.
 - lastfn를 받아서, AZ_Lock가 0가 되면 실행하여 결과를 출력.
-
 - 여기서 call back 동기화를 위해 젼역 변수 AZ_Lock를 사용했는데,
 개선을 하고 싶음.
