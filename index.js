@@ -1,5 +1,4 @@
 
-
 var MongoClient = require('mongodb').MongoClient, 
 	assert = require('assert'),
 	_ = require('lodash');
@@ -15,13 +14,7 @@ var url = 'mongodb://localhost:27017/namudb';
 var collection = 'namudbcollection';
 
 
-azureWord.forEach((ch) => {findWord(ch)});
-console.log( _.sortedUniq(result));
-
-
-
-
-function findWord(ch){
+var findWord = (ch, lastfn) => {
 
 	MongoClient.connect(url, (err, db) => {
 	  	assert.equal(null, err);
@@ -33,12 +26,16 @@ function findWord(ch){
 			assert.equal(null, err);
 			docs.forEach((doc) => {
 			    if ( checkWord(doc.title) ){
-			    	console.log(doc.title);
 			    	result.push(doc.title);
 			    }
 			});
 				
 			db.close();
+
+			if(!(--AZ_Lock)){
+				lastfn();
+			}
+
 	  	});	
 
 	});	
@@ -49,20 +46,20 @@ var startWord = (ch) => {
 	return {'title':re}
 }
 
+//모든 글자가 azureWord 포함된 문자이거나 " " 이면 True
 var checkWord = (word) => {
-
-	const len = word.length;
-	for(var i=0; i < len; i++){
-
-		if ( word[i] === ' ' ) {
-			continue;
-		}
-		if ( azureWord.indexOf(word[i]) === -1 ){
-			return false;
-		}
-	}
-
-	return true;
-}
+	return word.split('').every((e) => {
+		return azureWord.concat(' ').includes(e);
+	});
+};
 
 
+// 문장 체크 
+//console.log( checkWord("클래스가 다른 클라우드로 마이크로 소프트") );
+
+var AZ_Lock = azureWord.length;
+
+azureWord.forEach((ch) => {findWord(ch, () => {
+		console.log( _.uniq(result).sort().join(' / '));
+	});
+});
